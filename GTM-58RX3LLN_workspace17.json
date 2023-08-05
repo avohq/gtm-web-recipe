@@ -1,0 +1,202 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2023-08-05 09:59:50",
+    "containerVersion": {
+        "path": "accounts/3136949393/containers/137425955/versions/0",
+        "accountId": "3136949393",
+        "containerId": "137425955",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/3136949393/containers/137425955",
+            "accountId": "3136949393",
+            "containerId": "137425955",
+            "name": "Avo Inspector Recipe",
+            "publicId": "GTM-58RX3LLN",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1690903790434",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/3136949393/containers/137425955/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-58RX3LLN"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "tagId": "3",
+                "name": "Avo Inspector Send",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n  function handleEvent(dataLayerEvent) {\n    var keysToExclude = [\"userId\", \"segmentAnonymousId\", \"event\", \"language\", \n      \"page_location\", \"page_referrer\", \"page_title\", \"screen_resolution\",\n      \"engagement_time_msec\", \"gclid\", \"session_id\", \"session_number\",];\n    var eventProperties = Object.entries(dataLayerEvent).reduce(function (acc, entry) {\n      var key = entry[0];\n      if (!keysToExclude.includes(key) && !key.startsWith(\"gtm.\") && !key.startsWith(\"gtag.\") &&\n        !key.startsWith(\"firebase_\") && !key.startsWith(\"ga_\") && !key.startsWith(\"google_\") && \n        !key.startsWith(\"_\")) {\n        acc[key] = entry[1];\n      }\n      return acc;\n    }, {});\n    inspector.trackSchemaFromEvent(dataLayerEvent.event, eventProperties);\n    return;\n  };\n  function checkInput(functionEventName, uniqueEventId) {\n    var eventsToExclude = [\"click\", \"file_download\", \"first_visit\", \"form_start\", \n      \"form_submit\", \"page_view\", \"scroll\", \"session_start\", \"user_engagement\", \n      \"video_complete\", \"video_progress\", \"video_start\", \"view_search_results\",\n      \"app_remove\", \"app_store_refund\", \"app_store_subscription_cancel\", \n      \"app_store_subscription_renew\", \"error\", \"first_open\", \"in_app_purchase\",\n      \"view_complete\",];\n    return typeof uniqueEventId !== \"undefined\" && \n      typeof functionEventName !== \"undefined\" && \n      !functionEventName.startsWith(\"gtm.\") && \n      !eventsToExclude.includes(functionEventName)\n  }\n  function getDataLayerEventWithUniqueId(uniqueEventId) {\n    return dataLayer.filter(function (event) {\n      return event[\"gtm.uniqueEventId\"] === uniqueEventId;\n    }).pop();\n  }\n  function checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName) {\n    if (typeof dataLayerEvent !== \"undefined\" && dataLayerEvent !== null) {\n      var dataLayerEventName = dataLayerEvent.event;\n      if (typeof dataLayerEventName === \"undefined\" || dataLayerEventName === null) {\n        return false;\n      }\n      if (dataLayerEventName === functionEventName) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  try {\n    var functionEventName = {{Event}};\n    var uniqueEventId = {{gtm.uniqueEventId}};\n    if (checkInput(functionEventName, uniqueEventId)) {\n      var dataLayerEvent = getDataLayerEventWithUniqueId(uniqueEventId);\n      if (checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName)) {\n        handleEvent(dataLayerEvent);\n      }\n      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {\n        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');\n      }\n    }\n  } catch (error) {\n    if ({{Debug Mode}}) {\n      console.error(\"[Avo Inspector]: send error\", error);\n    }\n  }\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1691229553649",
+                "firingTriggerId": [
+                    "7"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "tagId": "4",
+                "name": "Avo Inspector Init",
+                "type": "html",
+                "priority": {
+                    "type": "INTEGER",
+                    "value": "1000"
+                },
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n    !(function () {\n      var t = (window.inspector = window.inspector || []);\n      (t.methods = [\n        'trackSchemaFromEvent',\n        'trackSchema',\n        'setBatchSize',\n        'setBatchFlushSeconds',\n        'enableLogging',\n      ]),\n        (t.factory = function (e) {\n          return function () {\n            var r = Array.prototype.slice.call(arguments);\n            return r.unshift(e), t.push(r), t;\n          };\n        });\n      for (var e = 0; e < t.methods.length; e++) {\n        var r = t.methods[e];\n        t[r] = t.factory(r);\n      }\n      (t.load = function () {\n        var t = document.createElement('script');\n        (t.type = 'text/javascript'),\n          (t.async = !0),\n          (t.src = 'https://cdn.avo.app/inspector/inspector-v1.min.js');\n        var e = document.getElementsByTagName('script')[0];\n        e.parentNode.insertBefore(t, e);\n      }),\n        (t._scriptVersion = 1);\n    })();\n   \n    try {\n        inspector.__API_KEY__ = {{Avo Inspector API Key}};\n        if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {\n        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');\n        }\n        inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';\n        inspector.__VERSION__ = '1.0.0';\n        inspector.__APP_NAME__ = \"GTM Web\";\n        inspector.load();\n    } catch (error) {\n        if ({{Debug Mode}}) {\n            console.error(\"[Avo Inspector]: initialization error\", error);\n        }\n    }\n  </script>\n  "
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1691229493690",
+                "firingTriggerId": [
+                    "8"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "triggerId": "7",
+                "name": "All Custom Event",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "MATCH_REGEX",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": ".*"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1690904732296"
+            },
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "triggerId": "8",
+                "name": "Initialization",
+                "type": "INIT",
+                "fingerprint": "1690904778174"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "variableId": "5",
+                "name": "gtm.uniqueEventId",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.uniqueEventId"
+                    }
+                ],
+                "fingerprint": "1690908458592",
+                "formatValue": {}
+            },
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "variableId": "6",
+                "name": "Avo Inspector API Key",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "YOUR-API-KEY"
+                    }
+                ],
+                "fingerprint": "1690908428928",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "type": "EVENT",
+                "name": "Event"
+            },
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "type": "DEBUG_MODE",
+                "name": "Debug Mode"
+            }
+        ],
+        "fingerprint": "1691229590241",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/3136949393/containers/137425955/versions/0?apiLink=version"
+    }
+}

@@ -1,0 +1,65 @@
+<script>
+  function handleEvent(dataLayerEvent) {
+    var keysToExclude = ["userId", "segmentAnonymousId", "event", "language",
+      "page_location", "page_referrer", "page_title", "screen_resolution",
+      "engagement_time_msec", "gclid", "session_id", "session_number",];
+    var eventProperties = Object.entries(dataLayerEvent).reduce(function (acc, entry) {
+      var key = entry[0];
+      if (!keysToExclude.includes(key) && !key.startsWith("gtm.") && !key.startsWith("gtag.") &&
+        !key.startsWith("firebase_") && !key.startsWith("ga_") && !key.startsWith("google_") &&
+        !key.startsWith("_")) {
+        acc[key] = entry[1];
+      }
+      return acc;
+    }, {});
+    inspector.trackSchemaFromEvent(dataLayerEvent.event, eventProperties);
+    return;
+  };
+  function checkInput(functionEventName, uniqueEventId) {
+    var eventsToExclude = ["click", "file_download", "first_visit", "form_start",
+      "form_submit", "page_view", "scroll", "session_start", "user_engagement",
+      "video_complete", "video_progress", "video_start", "view_search_results",
+      "app_remove", "app_store_refund", "app_store_subscription_cancel",
+      "app_store_subscription_renew", "error", "first_open", "in_app_purchase",
+      "view_complete",];
+    return typeof uniqueEventId !== "undefined" &&
+      typeof functionEventName !== "undefined" &&
+      !functionEventName.startsWith("gtm.") &&
+      !eventsToExclude.includes(functionEventName)
+  }
+  function getDataLayerEventWithUniqueId(uniqueEventId) {
+    return dataLayer.filter(function (event) {
+      return event["gtm.uniqueEventId"] === uniqueEventId;
+    }).pop();
+  }
+  function checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName) {
+    if (typeof dataLayerEvent !== "undefined" && dataLayerEvent !== null) {
+      var dataLayerEventName = dataLayerEvent.event;
+      if (typeof dataLayerEventName === "undefined" || dataLayerEventName === null) {
+        return false;
+      }
+      if (dataLayerEventName === functionEventName) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  try {
+    var functionEventName = {{Event}};
+    var uniqueEventId = {{gtm.uniqueEventId}};
+    if (checkInput(functionEventName, uniqueEventId)) {
+      var dataLayerEvent = getDataLayerEventWithUniqueId(uniqueEventId);
+      if (checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName)) {
+        handleEvent(dataLayerEvent);
+      }
+      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {
+        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');
+      }
+    }
+  } catch (error) {
+    if ({{Debug Mode}}) {
+      console.error("[Avo Inspector]: send error", error);
+    }
+  }
+</script>
