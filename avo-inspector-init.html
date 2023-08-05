@@ -30,18 +30,18 @@
     })();
 
     try {
-        inspector.__API_KEY__ = {{Avo Inspector API Key}};
-        if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {
+      inspector.__API_KEY__ = {{Avo Inspector API Key}};
+      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {
         console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');
-        }
-        inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';
-        inspector.__VERSION__ = '1.0.0';
-        inspector.__APP_NAME__ = "GTM Web";
-        inspector.load();
+      }
+      inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';
+      inspector.__VERSION__ = '1.0.0';
+      inspector.__APP_NAME__ = "GTM Web";
+      inspector.load();
     } catch (error) {
-        if ({{Debug Mode}}) {
-            console.error("[Avo Inspector]: initialization error", error);
-        }
+      if ({{Debug Mode}}) {
+        console.error("[Avo Inspector]: initialization error", error);
+      }
     }
   </script>
   
