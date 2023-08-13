@@ -1,6 +1,6 @@
 <script>
   function handleEvent(dataLayerEvent) {
-    var propertiesToExclude = JSON.parse({{Properties To Exclude}});
+    var propertiesToExclude = JSON.parse({{Avo Properties To Exclude}});
     var eventProperties = {};
     for (var key in dataLayerEvent) {
       if (dataLayerEvent.hasOwnProperty(key) &&
@@ -19,7 +19,7 @@
     return;
   };
   function checkInput(functionEventName, uniqueEventId) {
-    var eventsToExclude = JSON.parse({{Events To Exclude}});
+    var eventsToExclude = JSON.parse({{Avo Events To Exclude}});
     return typeof uniqueEventId !== "undefined" &&
       typeof functionEventName !== "undefined" &&
       !functionEventName.startsWith("gtm.") &&
