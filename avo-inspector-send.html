@@ -3,15 +3,20 @@
     var keysToExclude = ["userId", "segmentAnonymousId", "event", "language",
       "page_location", "page_referrer", "page_title", "screen_resolution",
       "engagement_time_msec", "gclid", "session_id", "session_number",];
-    var eventProperties = Object.entries(dataLayerEvent).reduce(function (acc, entry) {
-      var key = entry[0];
-      if (!keysToExclude.includes(key) && !key.startsWith("gtm.") && !key.startsWith("gtag.") &&
-        !key.startsWith("firebase_") && !key.startsWith("ga_") && !key.startsWith("google_") &&
-        !key.startsWith("_")) {
-        acc[key] = entry[1];
+    var eventProperties = {};
+    for (var key in dataLayerEvent) {
+      if (dataLayerEvent.hasOwnProperty(key) &&
+        !keysToExclude.includes(key) &&
+        !key.startsWith("gtm.") &&
+        !key.startsWith("gtag.") &&
+        !key.startsWith("firebase_") &&
+        !key.startsWith("ga_") &&
+        !key.startsWith("google_") &&
+        !key.startsWith("_")
+      ) {
+        eventProperties[key] = dataLayerEvent[key];
       }
-      return acc;
-    }, {});
+    }
     inspector.trackSchemaFromEvent(dataLayerEvent.event, eventProperties);
     return;
   };
@@ -28,9 +33,15 @@
       !eventsToExclude.includes(functionEventName)
   }
   function getDataLayerEventWithUniqueId(uniqueEventId) {
-    return dataLayer.filter(function (event) {
-      return event["gtm.uniqueEventId"] === uniqueEventId;
-    }).pop();
+    var matchingEvent = null;
+    for (var i = dataLayer.length - 1; i >= 0; i--) {
+      var event = dataLayer[i];
+      if (event["gtm.uniqueEventId"] === uniqueEventId) {
+        matchingEvent = event;
+        break;
+      }
+    }
+    return matchingEvent;
   }
   function checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName) {
     if (typeof dataLayerEvent !== "undefined" && dataLayerEvent !== null) {
