@@ -1,12 +1,10 @@
 <script>
   function handleEvent(dataLayerEvent) {
-    var keysToExclude = ["userId", "segmentAnonymousId", "event", "language",
-      "page_location", "page_referrer", "page_title", "screen_resolution",
-      "engagement_time_msec", "gclid", "session_id", "session_number",];
+    var propertiesToExclude = JSON.parse({{Properties To Exclude}});
     var eventProperties = {};
     for (var key in dataLayerEvent) {
       if (dataLayerEvent.hasOwnProperty(key) &&
-        !keysToExclude.includes(key) &&
+        !propertiesToExclude.includes(key) &&
         !key.startsWith("gtm.") &&
         !key.startsWith("gtag.") &&
         !key.startsWith("firebase_") &&
@@ -21,12 +19,7 @@
     return;
   };
   function checkInput(functionEventName, uniqueEventId) {
-    var eventsToExclude = ["click", "file_download", "first_visit", "form_start",
-      "form_submit", "page_view", "scroll", "session_start", "user_engagement",
-      "video_complete", "video_progress", "video_start", "view_search_results",
-      "app_remove", "app_store_refund", "app_store_subscription_cancel",
-      "app_store_subscription_renew", "error", "first_open", "in_app_purchase",
-      "view_complete",];
+    var eventsToExclude = JSON.parse({{Events To Exclude}});
     return typeof uniqueEventId !== "undefined" &&
       typeof functionEventName !== "undefined" &&
       !functionEventName.startsWith("gtm.") &&
