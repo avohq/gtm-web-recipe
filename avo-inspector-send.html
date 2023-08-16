@@ -1,0 +1,69 @@
+<script>
+  function handleEvent(dataLayerEvent) {
+    var propertiesToExclude = JSON.parse({{Avo Properties To Exclude}});
+    var eventProperties = {};
+    for (var key in dataLayerEvent) {
+      if (dataLayerEvent.hasOwnProperty(key) &&
+        !propertiesToExclude.includes(key) &&
+        !key.startsWith("gtm.") &&
+        !key.startsWith("gtag.") &&
+        !key.startsWith("firebase_") &&
+        !key.startsWith("ga_") &&
+        !key.startsWith("google_") &&
+        !key.startsWith("_")
+      ) {
+        eventProperties[key] = dataLayerEvent[key];
+      }
+    }
+    inspector.trackSchemaFromEvent(dataLayerEvent.event, eventProperties);
+    return;
+  };
+  function checkInput(functionEventName, uniqueEventId) {
+    var eventsToExclude = JSON.parse({{Avo Events To Exclude}});
+    return typeof uniqueEventId !== "undefined" &&
+      typeof functionEventName !== "undefined" &&
+      !functionEventName.startsWith("gtm.") &&
+      !eventsToExclude.includes(functionEventName)
+  }
+  function getDataLayerEventWithUniqueId(uniqueEventId) {
+    var matchingEvent = null;
+    for (var i = dataLayer.length - 1; i >= 0; i--) {
+      var event = dataLayer[i];
+      if (event["gtm.uniqueEventId"] === uniqueEventId) {
+        matchingEvent = event;
+        break;
+      }
+    }
+    return matchingEvent;
+  }
+  function checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName) {
+    if (typeof dataLayerEvent !== "undefined" && dataLayerEvent !== null) {
+      var dataLayerEventName = dataLayerEvent.event;
+      if (typeof dataLayerEventName === "undefined" || dataLayerEventName === null) {
+        return false;
+      }
+      if (dataLayerEventName === functionEventName) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  try {
+    var functionEventName = {{Event}};
+    var uniqueEventId = {{gtm.uniqueEventId}};
+    if (checkInput(functionEventName, uniqueEventId)) {
+      var dataLayerEvent = getDataLayerEventWithUniqueId(uniqueEventId);
+      if (checkDataLayerEventMatchCallingEvent(dataLayerEvent, functionEventName)) {
+        handleEvent(dataLayerEvent);
+      }
+      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {
+        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');
+      }
+    }
+  } catch (error) {
+    if ({{Debug Mode}}) {
+      console.error("[Avo Inspector]: send error", error);
+    }
+  }
+</script>
