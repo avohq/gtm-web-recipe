@@ -1,6 +1,6 @@
 # gtm-web-recipe
 
-This is a repo for our inspector integration recipe for web GTM. It is hosted in the "Avo Inspector Recipe" container in our GTM account 
+Avo Inspector integration recipe for web Google Tag Manager (GTM). It is hosted in the "Avo Inspector Recipe" container in our GTM account 
 https://tagmanager.google.com/?authuser=1#/container/accounts/3136949393/containers/137425955/workspaces/11
 
 And enabled in our "Segment Destination" container to run on Avo.app
