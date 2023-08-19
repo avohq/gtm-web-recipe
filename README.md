@@ -13,10 +13,10 @@ internal GTM account
 
 And is enabled in our internal "Segment Destination" container to run on Avo.app
 
-## After making changes to the tag files
+## After making changes to the tag files Avo GTM admin should do the following
 
-1. update the tag code in the "Avo Inspector Recipe" container in our GTM account
-2. export the "Avo Inspector Recipe" container as a json file https://support.google.com/tagmanager/answer/6106997?hl=en
-3. update the json recipe file (e.g. `GTM-58RX3LLN_*.json`) on the branch with changes
-4. import the json file into the "Segment Destination" container
-5. test that the tag is working using the preview function of the "Segment Destination" container
+1. Update the tag code in the internal "Avo Inspector Recipe" container in our GTM account
+2. Export the "Avo Inspector Recipe" container as a JSON file https://support.google.com/tagmanager/answer/6106997?hl=en
+3. Update the JSON recipe file (e.g. `GTM-58RX3LLN_*.json`) on the branch with changes
+4. Import the JSON file into the "Segment Destination" container
+5. Test that the tag is working using the preview function of the "Segment Destination" container
