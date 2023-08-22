@@ -9,9 +9,7 @@ When importing, choose `Merge` and `Overwrite conflicting tags, triggers, and va
 # Contributing
 
 Avo Inspector integration recipe for web Google Tag Manager (GTM). It is hosted in the "Avo Inspector Recipe" container in our 
-internal GTM account 
-
-And is enabled in our internal "Segment Destination" container to run on Avo.app
+internal GTM account and is enabled in our internal "Segment Destination" container to run on Avo.app.
 
 ## After making changes to the tag files Avo GTM admin should do the following
 
