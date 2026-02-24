@@ -26,7 +26,7 @@
         var e = document.getElementsByTagName('script')[0];
         e.parentNode.insertBefore(t, e);
       }),
-        (t._scriptVersion = 1);
+        (t._scriptVersion = 2);
     })();
 
     try {
@@ -38,9 +38,8 @@
       inspector.__VERSION__ = '1.0.0';
       inspector.__APP_NAME__ = {{Avo App Name}};
 
-      // Optional: Set public encryption key for payload encryption
-      // Create a GTM variable {{Avo Public Encryption Key}} and set it to your ECIES public key
-      // Leave empty or remove this block to send unencrypted
+      // Optional: Set public encryption key for property value validation
+      // Without a key, property values are not sent to Avo
       if ({{Avo Public Encryption Key}}) {
         inspector.__PUBLIC_ENCRYPTION_KEY__ = {{Avo Public Encryption Key}};
       }

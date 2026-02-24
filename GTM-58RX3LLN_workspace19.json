@@ -82,7 +82,7 @@
                     {
                         "type": "TEMPLATE",
                         "key": "html",
-                        "value": "<script>\n    !(function () {\n      var t = (window.inspector = window.inspector || []);\n      (t.methods = [\n        'trackSchemaFromEvent',\n        'trackSchema',\n        'setBatchSize',\n        'setBatchFlushSeconds',\n        'enableLogging',\n      ]),\n        (t.factory = function (e) {\n          return function () {\n            var r = Array.prototype.slice.call(arguments);\n            return r.unshift(e), t.push(r), t;\n          };\n        });\n      for (var e = 0; e < t.methods.length; e++) {\n        var r = t.methods[e];\n        t[r] = t.factory(r);\n      }\n      (t.load = function () {\n        var t = document.createElement('script');\n        (t.type = 'text/javascript'),\n          (t.async = !0),\n          (t.src = 'https://cdn.avo.app/inspector/inspector-v2.min.js');\n        var e = document.getElementsByTagName('script')[0];\n        e.parentNode.insertBefore(t, e);\n      }),\n        (t._scriptVersion = 2);\n    })();\n\n    try {\n      inspector.__API_KEY__ = {{Avo Inspector API Key}};\n      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {\n        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');\n      }\n      inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';\n      inspector.__VERSION__ = '1.0.0';\n      inspector.__APP_NAME__ = {{Avo App Name}};\n      inspector.load();\n    } catch (error) {\n      if ({{Debug Mode}}) {\n        console.error(\"[Avo Inspector]: initialization error\", error);\n      }\n    }\n  </script>\n  "
+                        "value": "<script>\n    !(function () {\n      var t = (window.inspector = window.inspector || []);\n      (t.methods = [\n        'trackSchemaFromEvent',\n        'trackSchema',\n        'setBatchSize',\n        'setBatchFlushSeconds',\n        'enableLogging',\n      ]),\n        (t.factory = function (e) {\n          return function () {\n            var r = Array.prototype.slice.call(arguments);\n            return r.unshift(e), t.push(r), t;\n          };\n        });\n      for (var e = 0; e < t.methods.length; e++) {\n        var r = t.methods[e];\n        t[r] = t.factory(r);\n      }\n      (t.load = function () {\n        var t = document.createElement('script');\n        (t.type = 'text/javascript'),\n          (t.async = !0),\n          (t.src = 'https://cdn.avo.app/inspector/inspector-v2.min.js');\n        var e = document.getElementsByTagName('script')[0];\n        e.parentNode.insertBefore(t, e);\n      }),\n        (t._scriptVersion = 2);\n    })();\n\n    try {\n      inspector.__API_KEY__ = {{Avo Inspector API Key}};\n      if ({{Debug Mode}} && {{Avo Inspector API Key}} === 'YOUR-API-KEY') {\n        console.error('[Avo Inspector]: API Key is not set, create a source in Avo and set your Inspector API key as the value of the {{Avo Inspector API Key}} GTM variable https://www.avo.app/docs/data-design/define-sources-and-destinations#inspector-setup');\n      }\n      inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';\n      inspector.__VERSION__ = '1.0.0';\n      inspector.__APP_NAME__ = {{Avo App Name}};\n\n      // Optional: Set public encryption key for property value validation\n      // Without a key, property values are not sent to Avo\n      if ({{Avo Public Encryption Key}}) {\n        inspector.__PUBLIC_ENCRYPTION_KEY__ = {{Avo Public Encryption Key}};\n      }\n\n      inspector.load();\n    } catch (error) {\n      if ({{Debug Mode}}) {\n        console.error(\"[Avo Inspector]: initialization error\", error);\n      }\n    }\n  </script>\n  "
                     },
                     {
                         "type": "BOOLEAN",
@@ -227,6 +227,22 @@
                     }
                 ],
                 "fingerprint": "1691919896403",
+                "formatValue": {}
+            },
+            {
+                "accountId": "3136949393",
+                "containerId": "137425955",
+                "variableId": "14",
+                "name": "Avo Public Encryption Key",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": ""
+                    }
+                ],
+                "fingerprint": "1691919998771",
                 "formatValue": {}
             }
         ],
