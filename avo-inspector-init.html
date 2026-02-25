@@ -22,11 +22,11 @@
         var t = document.createElement('script');
         (t.type = 'text/javascript'),
           (t.async = !0),
-          (t.src = 'https://cdn.avo.app/inspector/inspector-v1.min.js');
+          (t.src = 'https://cdn.avo.app/inspector/inspector-v2.min.js');
         var e = document.getElementsByTagName('script')[0];
         e.parentNode.insertBefore(t, e);
       }),
-        (t._scriptVersion = 1);
+        (t._scriptVersion = 2);
     })();
 
     try {
@@ -37,6 +37,14 @@
       inspector.__ENV__ = {{Debug Mode}} ? 'dev' : 'prod';
       inspector.__VERSION__ = '1.0.0';
       inspector.__APP_NAME__ = {{Avo App Name}};
+
+      // Optional: Set public encryption key for property value validation
+      // Without a key, property values are not sent to Avo
+      // Learn more: https://www.avo.app/docs/inspector/inspector-debugger#generating-encryption-keys
+      if ({{Avo Public Encryption Key}} && {{Avo Public Encryption Key}} !== 'YOUR-PUBLIC-ENCRYPTION-KEY') {
+        inspector.__PUBLIC_ENCRYPTION_KEY__ = {{Avo Public Encryption Key}};
+      }
+
       inspector.load();
     } catch (error) {
       if ({{Debug Mode}}) {
